@@ -1,0 +1,179 @@
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 0 0% 3%;
+    --foreground: 0 0% 98%;
+    --card: 0 0% 3%;
+    --card-foreground: 0 0% 98%;
+    --popover: 0 0% 3%;
+    --popover-foreground: 0 0% 98%;
+    --primary: 244 100% 69%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 189 100% 50%;
+    --secondary-foreground: 0 0% 3%;
+    --muted: 0 0% 15%;
+    --muted-foreground: 0 0% 65%;
+    --accent: 244 100% 69%;
+    --accent-foreground: 0 0% 100%;
+    --destructive: 0 100% 71%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 0 0% 15%;
+    --input: 0 0% 15%;
+    --ring: 244 100% 69%;
+    --radius: 0.75rem;
+    
+    --primary: 244 100% 69%; /* #6C63FF */
+    --secondary: 189 100% 50%; /* #00D9FF */
+    --success: 157 100% 50%; /* #00FF9D */
+    --warning: 0 100% 71%; /* #FF6B6B */
+  }
+
+  .dark {
+    --background: 240 10% 4%;
+    --foreground: 0 0% 98%;
+    --card: 240 10% 4%;
+    --card-foreground: 0 0% 98%;
+    --popover: 240 10% 4%;
+    --popover-foreground: 0 0% 98%;
+    --primary: 244 100% 69%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 189 100% 50%;
+    --secondary-foreground: 240 10% 4%;
+    --muted: 240 10% 12%;
+    --muted-foreground: 240 5% 65%;
+    --accent: 244 100% 69%;
+    --accent-foreground: 0 0% 100%;
+    --destructive: 0 100% 71%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 240 10% 12%;
+    --input: 240 10% 12%;
+    --ring: 244 100% 69%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground antialiased;
+    background-color: #0A0A0F;
+    overflow-x: hidden;
+  }
+}
+
+.mesh-bg {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  background: 
+    radial-gradient(at 0% 0%, rgba(108, 99, 255, 0.15) 0px, transparent 50%),
+    radial-gradient(at 100% 0%, rgba(0, 217, 255, 0.1) 0px, transparent 50%),
+    radial-gradient(at 100% 100%, rgba(108, 99, 255, 0.1) 0px, transparent 50%),
+    radial-gradient(at 0% 100%, rgba(0, 217, 255, 0.15) 0px, transparent 50%);
+  filter: blur(80px);
+  animation: mesh-move 20s ease-in-out infinite alternate;
+}
+
+@keyframes mesh-move {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.1) translate(2%, 2%); }
+  100% { transform: scale(1) translate(-1%, -1%); }
+}
+
+.glass-card {
+  @apply backdrop-blur-md bg-white/5 border border-white/10;
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+}
+
+.glass-card-hover {
+  @apply transition-all duration-300 hover:bg-white/10 hover:border-white/20;
+}
+
+.orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(60px);
+  z-index: -1;
+  opacity: 0.3;
+  animation: float 20s infinite ease-in-out;
+}
+
+@keyframes float {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  33% { transform: translate(10vw, 15vh) scale(1.2); }
+  66% { transform: translate(-5vw, 25vh) scale(0.8); }
+}
+
+.typewriter-cursor::after {
+  content: "|";
+  @apply text-primary;
+  animation: blink 1s step-end infinite;
+}
+
+@keyframes blink {
+  from, to { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+/* ── Shimmer skeleton ── */
+.shimmer {
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0.05) 25%,
+    rgba(255, 255, 255, 0.12) 50%,
+    rgba(255, 255, 255, 0.05) 75%
+  );
+  background-size: 200% 100%;
+  animation: shimmer-sweep 1.6s infinite linear;
+}
+
+@keyframes shimmer-sweep {
+  0%   { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+/* ── Button shimmer on hover ── */
+.btn-shimmer {
+  background: linear-gradient(
+    105deg,
+    transparent 40%,
+    rgba(255, 255, 255, 0.18) 50%,
+    transparent 60%
+  );
+  background-size: 200% 100%;
+  background-position: 200% 0;
+  transition: background-position 0s;
+}
+
+*:hover > .btn-shimmer {
+  animation: btn-shimmer-move 0.6s ease forwards;
+}
+
+@keyframes btn-shimmer-move {
+  from { background-position: 200% 0; }
+  to   { background-position: -200% 0; }
+}
+
+/* ── Dashed border pulse on hover ── */
+.dashed-pulse {
+  transition: box-shadow 0.3s ease, border-color 0.3s ease;
+}
+
+.dashed-pulse:hover {
+  box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.12), 0 0 30px rgba(139, 92, 246, 0.08);
+  animation: dash-pulse 1.8s ease-in-out infinite;
+}
+
+@keyframes dash-pulse {
+  0%, 100% { border-color: rgba(139, 92, 246, 0.45); }
+  50%       { border-color: rgba(139, 92, 246, 0.85); }
+}
